@@ -42,6 +42,9 @@ source 'https://rubygems.org'
 
  gem 'thor', '0.19.1'
 
+ # CSS Bootstrap
+ gem 'bootstrap-sass'
+
  group :development do
    gem 'listen', '~> 3.0.5'
  end
