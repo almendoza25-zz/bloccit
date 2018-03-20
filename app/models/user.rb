@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :votes, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :favorite_posts, through: :favorites, source: :post, dependent: :destroy
 
   before_save { self.email = email.downcase if email.present? }
   before_save { self.role ||= :member }
@@ -28,5 +29,9 @@ class User < ApplicationRecord
   def avatar_url(size)
     gravatar_id = Digest::MD5::hexdigest(self.email).downcase
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
+  end
+
+  def favorites_for_user(user)
+    @user_favorites = favorites.where(user_id: user.id)
   end
 end
